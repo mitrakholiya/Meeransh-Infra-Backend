@@ -14,6 +14,7 @@ export const createEstimate = async (req: Request, res: Response) => {
       file: req.file ? req.file.filename : null,
     });
 
+
     await estimate.save();
 
     res.status(201).json({
@@ -25,6 +26,24 @@ export const createEstimate = async (req: Request, res: Response) => {
     res.status(500).json({
       success: false,
       message: "Something went wrong",
+    });
+  }
+};
+
+
+export const getEstimates = async (req: Request, res: Response) => {
+  try {
+    const estimates = await Estimate.find();
+    res.status(200).json({
+      success: true,
+      data: estimates,
+    });
+  } catch (error) {
+    console.log(error);
+
+    res.status(500).json({
+      success: false,
+      message: error,
     });
   }
 };
