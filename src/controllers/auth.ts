@@ -14,12 +14,13 @@ export const adminRegister = async (req: Request, res: Response): Promise<void> 
             res.status(400).json({ mes: "user is alreacy Register" })
             return;
         }
+
         const hashPassword = await bcrypt.hash(password, 10)
         const admin = await Auth.create({ email, password: hashPassword })
 
         res.status(201).json({
-            token: genrateToken(admin._id.toString()),
-            admin: { id: admin._id, email: admin.email }
+            token: genrateToken(admin._id.toString(),admin.role.toString()),
+            admin: { id: admin._id, email: admin.email, role: admin.role }
         })
         return;
     } catch (err) {
@@ -30,7 +31,7 @@ export const adminLogin = async (req: Request, res: Response) => {
     try {
         // 1. Get data from body
         const { email, password } = req.body;
-        
+
 
         // 2. Find admin
         const admin = await Auth.findOne({ email });
@@ -55,8 +56,8 @@ export const adminLogin = async (req: Request, res: Response) => {
 
         // 4. Generate JWT
         res.status(201).json({
-            token: genrateToken(admin._id.toString()),
-            admin: { id: admin._id, email: admin.email }
+            token: genrateToken(admin._id.toString(), admin.role.toString()),
+            admin: { id: admin._id, email: admin.email, role: admin.role }
         })
         return;
     } catch (error) {

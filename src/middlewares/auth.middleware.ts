@@ -1,8 +1,18 @@
 import { Request, Response, NextFunction } from "express";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
+
+
+import { JwtPayload } from "jsonwebtoken";
+
+interface JwtUserPayload extends JwtPayload {
+  id: string;
+  email: string;
+  role: "admin" | "user";
+}
+
 
 interface AuthRequest extends Request {
-  user?: string | JwtPayload;
+  user?: JwtUserPayload;
 }
 
 export const jwtChecker = (
@@ -11,32 +21,33 @@ export const jwtChecker = (
   next: NextFunction
 ) => {
   try {
-    // 1. Get token from header
     const authHeader = req.headers.authorization;
 
-    if (!authHeader) {
-      return res.status(401).json({ message: "Token missing" });
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "Token missing or invalid" });
     }
 
-    // Expected format: Bearer TOKEN
     const token = authHeader.split(" ")[1];
 
-    if (!token) {
-      return res.status(401).json({ message: "Invalid token format" });
-    }
-
-    // 2. Verify token
     const decoded = jwt.verify(
       token,
       process.env.JWT_SECRET as string
-    );
+    ) as JwtUserPayload;
 
-    // 3. Attach user to request
+    //  Role check
+    if (decoded.role !== "admin") {
+      return res.status(403).json({
+        message: "Only admin can access this resource",
+      });
+    }
+
+    // Attach user
     req.user = decoded;
 
-    // 4. Allow request
     next();
   } catch (error) {
-    return res.status(401).json({ message: "Unauthorized / Invalid token" });
+    return res.status(401).json({
+      message: "Unauthorized or token expired",
+    });
   }
 };
