@@ -16,7 +16,7 @@ export const adminRegister = async (req: Request, res: Response): Promise<void> 
         }
 
         const hashPassword = await bcrypt.hash(password, 10)
-        const admin = await Auth.create({ email, password: hashPassword })
+        const admin = await Auth.create({ email, password: hashPassword ,role:"admin"})
 
         res.status(201).json({
             token: genrateToken(admin._id.toString(),admin.role.toString()),
