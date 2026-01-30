@@ -7,7 +7,8 @@ export interface IEstimate extends Document {
   city: string;
   message: string;
   fileUrl?: string;
-  publicId: string,
+  publicId: string;
+  originalname: string;
 }
 
 const EstimateSchema: Schema = new Schema(
@@ -39,6 +40,9 @@ const EstimateSchema: Schema = new Schema(
     publicId: {
       type: String, // store filename or path
     },
+    originalname: {
+      type: String,
+    }
   },
   { timestamps: true }
 );

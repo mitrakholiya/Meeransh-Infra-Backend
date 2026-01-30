@@ -7,6 +7,7 @@ export const createEstimate = async (req: Request, res: Response) => {
     const { name, email, phone, city, message } = req.body;
     const fileUrl = req.file ? req.file.path : null;       // Cloudinary URL
     const publicId = req.file ? req.file.filename : null;
+    const originalname = req.file ? req.file.originalname:null ;
     const estimate = new Estimate({
       name,
       email,
@@ -15,6 +16,7 @@ export const createEstimate = async (req: Request, res: Response) => {
       message,
       fileUrl,
       publicId,
+      originalname
     });
 
 
