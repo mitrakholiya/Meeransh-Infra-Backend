@@ -11,15 +11,21 @@ cloudinary.config({
 
 const storage = new CloudinaryStorage({
   cloudinary,
-  params: {
-    folder: "uploads",
-    resource_type: "raw",
-  } as any,
-})
+  params: async (req, file) => {
+    return {
+      folder: "uploads",
+      resource_type: "raw",          // IMPORTANT
+      use_filename: true,            // KEEP original name
+      unique_filename: false,        // DO NOT randomize
+      filename_override: file.originalname, //  keeps .pdf .zip .dwg
+    };
+  },
+});
+
 
 export const upload = multer({
   storage,
   limits: {
-    fileSize: 5 * 1024 * 1024, // 5MB
+    fileSize: 50 * 1024 * 1024, // ZIPs are bigger — be realistic
   },
 });
