@@ -6,12 +6,20 @@ import cors from "cors"
 import path from "path"
 const app = express()
 
+import { fileURLToPath } from "url";
+
+// Compute __dirname equivalent
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-  origin: process.env.FORNTEND_URL,
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  credentials: true, // if you are sending cookies
+    origin: process.env.FORNTEND_URL,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true, // if you are sending cookies
 }));
 
 // Serve uploaded files statically
