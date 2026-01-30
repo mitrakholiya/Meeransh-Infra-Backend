@@ -1,7 +1,7 @@
 import { Router } from "express";
-import { createEstimate, getEstimates,deleteEstimate } from "../controllers/estimate.contrallers";
-import { upload } from "../middlewares/upload.middleware";
-import { jwtChecker } from "../middlewares/auth.middleware";
+import { createEstimate, getEstimates,deleteEstimate } from "../controllers/estimate.contrallers.js";
+import { upload } from "../middlewares/upload.middleware.js";
+import { jwtChecker } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 

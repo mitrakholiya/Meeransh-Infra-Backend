@@ -1,7 +1,7 @@
 import express, { urlencoded } from "express"
-import authRouter from "./routes/auth"
-import estimateRoutes from "./routes/estimate";
-import contactRouter from "./routes/contact"
+import authRouter from "./routes/auth.js"
+import estimateRoutes from "./routes/estimate.js";
+import contactRouter from "./routes/contact.js"
 import cors from "cors"
 import path from "path"
 const app = express()

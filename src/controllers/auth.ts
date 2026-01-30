@@ -1,7 +1,7 @@
-import Auth from "../models/auth"
+import Auth from "../models/auth.js"
 import { Request, Response } from "express"
 import bcrypt from "bcrypt"
-import { genrateToken } from "../middlewares/jwt"
+import { genrateToken } from "../middlewares/jwt.js"
 import jwt from "jsonwebtoken"
 
 export const adminRegister = async (req: Request, res: Response): Promise<void> => {
