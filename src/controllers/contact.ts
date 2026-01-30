@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Contact from "../models/contact";
+import Contact from "../models/contact.js";
 
 export const postContact = async (req: Request, res: Response) => {
     try {

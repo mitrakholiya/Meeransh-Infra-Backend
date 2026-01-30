@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import Estimate from "../models/Estimate";
+import Estimate from "../models/Estimate.js";
 
 export const createEstimate = async (req: Request, res: Response) => {
   try {
