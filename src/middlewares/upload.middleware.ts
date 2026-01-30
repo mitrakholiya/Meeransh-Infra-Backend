@@ -13,9 +13,9 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "uploads",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-  } as any, // Cast to any to resolve "folder does not exist in type Params"
-});
+    resource_type: "raw",
+  } as any,
+})
 
 export const upload = multer({
   storage,

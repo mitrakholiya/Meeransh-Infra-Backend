@@ -1,4 +1,4 @@
-import mongoose,{Schema,Document} from "mongoose";  
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IEstimate extends Document {
   name: string;
@@ -6,7 +6,8 @@ export interface IEstimate extends Document {
   phone: string;
   city: string;
   message: string;
-  file?: string;
+  fileUrl?: string;
+  publicId: string,
 }
 
 const EstimateSchema: Schema = new Schema(
@@ -32,7 +33,10 @@ const EstimateSchema: Schema = new Schema(
     message: {
       type: String,
     },
-    file: {
+    fileUrl: {
+      type: String, // store filename or path
+    },
+    publicId: {
       type: String, // store filename or path
     },
   },
