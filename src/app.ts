@@ -9,8 +9,9 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cors({
-    origin: process.env.FORNTEND_URL, // your frontend URL
-    credentials: true,               // if using cookies or auth headers
+  origin: "https://meeransh-infra.vercel.app",
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true, // if you are sending cookies
 }));
 
 // Serve uploaded files statically
