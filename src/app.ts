@@ -16,8 +16,11 @@ const __dirname = path.dirname(__filename);
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+// Fix typo from FORNTEND_URL to FRONTEND_URL and ensure no trailing slash
+const frontendUrl = process.env.FRONTEND_URL?.replace(/\/$/, "") || "";
+
 app.use(cors({
-    origin: process.env.FORNTEND_URL,
+    origin: frontendUrl,
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true, // if you are sending cookies
 }));
